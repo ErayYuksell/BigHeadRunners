@@ -12,9 +12,13 @@ public class GateController : MonoBehaviour
     [SerializeField] TextMeshProUGUI gateText;
     [SerializeField] Texture[] textures;
     public GateType gateType;
-
+    GameObject PlayerObject;
+    PlayerController PlayerScript;
+    bool hasGateUsed = false; // kapiya 1 kereden fazla degmemesi icin 
     void Start()
     {
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        PlayerScript = PlayerObject.GetComponent<PlayerController>();
         AddGateValueAndSymbol();
     }
 
@@ -23,7 +27,7 @@ public class GateController : MonoBehaviour
     {
 
     }
-    void AddGateValueAndSymbol()
+    void AddGateValueAndSymbol() // 4 farkli kapi turune gore image degisimini saglar 
     {
         gateText.text = gateValue.ToString();
         switch (gateType)
@@ -44,6 +48,14 @@ public class GateController : MonoBehaviour
                 gateImage.texture = textures[3];
                 break;
 
+        }
+    }
+    private void OnTriggerEnter(Collider other) // player degdiginde Player uzerindeki scriptten PassedGate e gateType i ve gateValue yu gonderiyoruz
+    {
+        if (other.CompareTag("Player") && hasGateUsed == false)
+        {
+            hasGateUsed = true;
+            PlayerScript.PassedGate(gateType, gateValue);
         }
     }
 }

@@ -360,6 +360,7 @@
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/GateController.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/ScaleCalculator.cs"
 -langversion:9.0
 
 /deterministic

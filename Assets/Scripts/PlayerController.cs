@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     float xSpeed;
     float maxXValue = 4.28f;
     bool isPlayerMoving = true;
+    [SerializeField] GameObject headBoxObject;
+    ScaleCalculator scaleCalculator; // normal bir class seklinde 
     void Start()
     {
-
+        scaleCalculator = new ScaleCalculator(); // ??????
     }
 
 
@@ -50,5 +52,10 @@ public class PlayerController : MonoBehaviour
         {
             isPlayerMoving = false;
         }
+    }
+    public void PassedGate(GateType gateType, int gateValue) // bu fonksiyon gate e degdigim anda diger script tarafindan calistirilir o taraftan gateTypi tasir ve scaleCalculator i calistirir
+    {
+        headBoxObject.transform.localScale = scaleCalculator.CalculatePlayerHeadSize(gateType, gateValue, headBoxObject.transform);
+        Debug.Log("Kapidan Gecildi");
     }
 }
