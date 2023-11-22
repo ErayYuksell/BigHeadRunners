@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GateHolderController.cs" />
     <Compile Include="Assets\Scripts\ScaleCalculator.cs" />
+    <Compile Include="Assets\Scripts\ColorBoxController.cs" />
     <Compile Include="Assets\Scripts\GateController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />

@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     bool isPlayerMoving = true;
     [SerializeField] GameObject headBoxObject;
     ScaleCalculator scaleCalculator; // normal bir class seklinde 
+    Renderer headBoxRenderer;
     void Start()
     {
         scaleCalculator = new ScaleCalculator(); // ??????
+        headBoxRenderer = headBoxObject.transform.GetChild(0).gameObject.GetComponent<Renderer>();
     }
 
 
@@ -57,5 +59,9 @@ public class PlayerController : MonoBehaviour
     {
         headBoxObject.transform.localScale = scaleCalculator.CalculatePlayerHeadSize(gateType, gateValue, headBoxObject.transform);
         Debug.Log("Kapidan Gecildi");
+    }
+    public void TouchedToColorBox(Material boxMat)
+    {
+        headBoxRenderer.material = boxMat;
     }
 }
