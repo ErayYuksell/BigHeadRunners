@@ -15,10 +15,12 @@ public class GateController : MonoBehaviour
     GameObject PlayerObject;
     PlayerController PlayerScript;
     bool hasGateUsed = false; // kapiya 1 kereden fazla degmemesi icin 
+    GateHolderController gateHolderController;
     void Start()
     {
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         PlayerScript = PlayerObject.GetComponent<PlayerController>();
+        gateHolderController = transform.parent.GetComponent<GateHolderController>(); // parenttaki scripti aldik 
         AddGateValueAndSymbol();
     }
 
@@ -56,6 +58,13 @@ public class GateController : MonoBehaviour
         {
             hasGateUsed = true;
             PlayerScript.PassedGate(gateType, gateValue);
+
+            if (gateHolderController != null) // singleGate de bu null donucek bu yuzden kontrol saglamaliyiz
+            {
+                gateHolderController.CloseGate();
+            }
+          
+            Destroy(gameObject);
         }
     }
 }
