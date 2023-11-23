@@ -8,17 +8,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int playerSpeed = 5;
     float xSpeed;
     float maxXValue = 4.28f;
-    bool isPlayerMoving = true;
+    bool isPlayerMoving = false;
     [SerializeField] GameObject headBoxObject;
     ScaleCalculator scaleCalculator; // normal bir class seklinde 
     Renderer headBoxRenderer;
     Material currentHeadMat;
     [SerializeField] Material warningMat;
+    Animator playerAnim;
     void Start()
     {
         scaleCalculator = new ScaleCalculator(); // ??????
         headBoxRenderer = headBoxObject.transform.GetChild(0).gameObject.GetComponent<Renderer>();
         currentHeadMat = headBoxRenderer.material; // ilk bastaki turuncu materiali tutuyor
+        playerAnim = GetComponent<Animator>();
     }
 
 
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("FinishLine"))
         {
             isPlayerMoving = false;
+            StartIdleAnim();
         }
     }
     public void PassedGate(GateType gateType, int gateValue) // bu fonksiyon gate e degdigim anda diger script tarafindan calistirilir o taraftan gateTypi tasir ve scaleCalculator i calistirir
@@ -77,9 +80,24 @@ public class PlayerController : MonoBehaviour
     {
         headBoxObject.transform.GetChild(0).GetComponent<MeshRenderer>().material = warningMat;
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
 
         headBoxObject.transform.GetChild(0).GetComponent<MeshRenderer>().material = currentHeadMat;
 
+    }
+    public void GameStart() // ekrana tikladiginda hareket baslasin diye kosma animasyonunuda burda baslattim 
+    {
+        isPlayerMoving = true;
+        StartRunAnim();
+    }
+    void StartRunAnim()
+    {
+        playerAnim.SetBool("isIdleOn", false);
+        playerAnim.SetBool("IsRunningOn",true);
+    }
+    void StartIdleAnim()
+    {
+        playerAnim.SetBool("isIdleOn", true);
+        playerAnim.SetBool("IsRunningOn", false);
     }
 }
