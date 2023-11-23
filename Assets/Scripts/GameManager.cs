@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] GameObject StartMenuPanel;
+    [SerializeField] GameObject SuccessPanel;
     GameObject playerObject;
     PlayerController playerScript;
     private void Awake()
@@ -35,5 +37,14 @@ public class GameManager : MonoBehaviour
     {
         StartMenuPanel.SetActive(false);
         playerScript.GameStart();
+    }
+    public void NextlevelButtonTapped()
+    {
+        SuccessPanel.SetActive(false);
+        SceneManager.LoadScene("Level1");
+    }
+    public void ShowSuccessMenu()
+    {
+        SuccessPanel.SetActive(true);
     }
 }

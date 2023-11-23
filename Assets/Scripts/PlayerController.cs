@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     Material currentHeadMat;
     [SerializeField] Material warningMat;
     Animator playerAnim;
+    [SerializeField] AudioSource playerAudioSource;
+    [SerializeField] AudioClip gateClip, colorBoxClip, razorClip, successClip;
     void Start()
     {
         scaleCalculator = new ScaleCalculator(); // ??????
@@ -59,20 +61,26 @@ public class PlayerController : MonoBehaviour
         {
             isPlayerMoving = false;
             StartIdleAnim();
+            GameManager.Instance.ShowSuccessMenu();
+            StopBackGroundMusic();
+            PlayAudio(successClip, 0.1f);
         }
     }
     public void PassedGate(GateType gateType, int gateValue) // bu fonksiyon gate e degdigim anda diger script tarafindan calistirilir o taraftan gateTypi tasir ve scaleCalculator i calistirir
     {
+        PlayAudio(gateClip, 0.1f);
         headBoxObject.transform.localScale = scaleCalculator.CalculatePlayerHeadSize(gateType, gateValue, headBoxObject.transform);
         Debug.Log("Kapidan Gecildi");
     }
     public void TouchedToColorBox(Material boxMat)
     {
+        PlayAudio(colorBoxClip, 0.1f);
         headBoxRenderer.material = boxMat;
         currentHeadMat = boxMat;
     }
     public void TouchedTheRazor()
     {
+        PlayAudio(razorClip, 0.1f);
         headBoxObject.transform.localScale = scaleCalculator.DecreasePlayerHeadSize(headBoxObject.transform);
         StartCoroutine(StartRedBlinkEffect());
     }
@@ -93,11 +101,19 @@ public class PlayerController : MonoBehaviour
     void StartRunAnim()
     {
         playerAnim.SetBool("isIdleOn", false);
-        playerAnim.SetBool("IsRunningOn",true);
+        playerAnim.SetBool("IsRunningOn", true);
     }
     void StartIdleAnim()
     {
         playerAnim.SetBool("isIdleOn", true);
         playerAnim.SetBool("IsRunningOn", false);
+    }
+    void PlayAudio(AudioClip clip, float volume)
+    {
+        playerAudioSource.PlayOneShot(clip, volume);
+    }
+    void StopBackGroundMusic()
+    {
+        Camera.main.GetComponent<AudioSource>().Stop();
     }
 }
