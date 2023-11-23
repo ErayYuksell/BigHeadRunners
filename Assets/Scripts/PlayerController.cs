@@ -12,10 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject headBoxObject;
     ScaleCalculator scaleCalculator; // normal bir class seklinde 
     Renderer headBoxRenderer;
+    Material currentHeadMat;
+    [SerializeField] Material warningMat;
     void Start()
     {
         scaleCalculator = new ScaleCalculator(); // ??????
         headBoxRenderer = headBoxObject.transform.GetChild(0).gameObject.GetComponent<Renderer>();
+        currentHeadMat = headBoxRenderer.material; // ilk bastaki turuncu materiali tutuyor
     }
 
 
@@ -63,5 +66,20 @@ public class PlayerController : MonoBehaviour
     public void TouchedToColorBox(Material boxMat)
     {
         headBoxRenderer.material = boxMat;
+        currentHeadMat = boxMat;
+    }
+    public void TouchedTheRazor()
+    {
+        headBoxObject.transform.localScale = scaleCalculator.DecreasePlayerHeadSize(headBoxObject.transform);
+        StartCoroutine(StartRedBlinkEffect());
+    }
+    IEnumerator StartRedBlinkEffect() // engellere deyince kafamiz 0.3 saniyeligine kirmizi yanip simdiki rengine geri donecek 
+    {
+        headBoxObject.transform.GetChild(0).GetComponent<MeshRenderer>().material = warningMat;
+
+        yield return new WaitForSeconds(0.3f);
+
+        headBoxObject.transform.GetChild(0).GetComponent<MeshRenderer>().material = currentHeadMat;
+
     }
 }

@@ -10,7 +10,7 @@ public class GateController : MonoBehaviour
     [SerializeField] int gateValue;
     [SerializeField] RawImage gateImage;
     [SerializeField] TextMeshProUGUI gateText;
-    [SerializeField] Texture[] textures;
+    [SerializeField] Texture[] textures; // bu 2D de sprite 
     public GateType gateType;
     GameObject PlayerObject;
     PlayerController PlayerScript;

@@ -6,6 +6,7 @@ public class ScaleCalculator // herhangi bir oyun objesi icinde kullanmayacagim 
 {
     float maxScale = 4;
     float minScale = 1.2f;
+    float razorDamage = 0.5f;
     public Vector3 CalculatePlayerHeadSize(GateType gateType, int gateValue, Transform headTransform)
     {
         float changeSize = gateValue / 100;
@@ -57,5 +58,24 @@ public class ScaleCalculator // herhangi bir oyun objesi icinde kullanmayacagim 
         }
         return new Vector3(newXScale, newYScale, newZScale);
 
+    }
+    public Vector3 DecreasePlayerHeadSize(Transform playerTransform)
+    {
+        float nexXScale = playerTransform.localScale.x - razorDamage;
+        float nexYScale = playerTransform.localScale.y - razorDamage;
+        float nexZScale = playerTransform.localScale.z - razorDamage;
+        if (nexXScale < minScale)
+        {
+            nexXScale = minScale;
+        }
+        if (nexYScale < minScale)
+        {
+            nexYScale = minScale;
+        }
+        if (nexZScale < minScale)
+        {
+            nexZScale = minScale;
+        }
+        return new Vector3(nexXScale, nexYScale, nexZScale);
     }
 }
