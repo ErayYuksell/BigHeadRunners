@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public void NextlevelButtonTapped()
     {
         SuccessPanel.SetActive(false);
-        SceneManager.LoadScene("Level1");
+        LevelController.Instance.NextLevel();
     }
     public void ShowSuccessMenu()
     {

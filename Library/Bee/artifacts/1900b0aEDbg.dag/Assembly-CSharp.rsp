@@ -362,6 +362,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/GateController.cs"
 "Assets/Scripts/GateHolderController.cs"
+"Assets/Scripts/LevelController.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/RazorController.cs"
 "Assets/Scripts/ScaleCalculator.cs"
